@@ -22,21 +22,16 @@ import java.util.Properties;
 @ComponentScan(value = "hiber")
 public class AppConfig {
 
-   private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-   private static final String DB_URL = "jdbc:mysql://localhost:3306/mybd";
-   private static final String DB_USERNAME = "root";
-   private static final String DB_PASSWORD = "11Anlip16!";
-
    @Autowired
    private Environment env;
 
    @Bean
    public DataSource getDataSource() {
       DriverManagerDataSource dataSource = new DriverManagerDataSource();
-      dataSource.setDriverClassName(env.getProperty(DB_DRIVER));
-      dataSource.setUrl(env.getProperty(DB_URL));
-      dataSource.setUsername(env.getProperty(DB_USERNAME));
-      dataSource.setPassword(env.getProperty(DB_PASSWORD));
+      dataSource.setDriverClassName(env.getProperty("db.driver"));
+      dataSource.setUrl(env.getProperty("db.url"));
+      dataSource.setUsername(env.getProperty("db.username"));
+      dataSource.setPassword(env.getProperty("db.password"));
       return dataSource;
    }
 
@@ -46,8 +41,8 @@ public class AppConfig {
       factoryBean.setDataSource(getDataSource());
 
       Properties props=new Properties();
-      props.put("hibernate.show_sql", env.getProperty("true"));
-      props.put("hibernate.hbm2ddl.auto", env.getProperty("update"));
+      props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+      props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 
       factoryBean.setHibernateProperties(props);
       factoryBean.setAnnotatedClasses(User.class);
