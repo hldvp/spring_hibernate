@@ -10,10 +10,10 @@ import java.util.List;
 
 public class MainApp {
    public static void main(String[] args) throws SQLException {
-      AnnotationConfigApplicationContext context = 
+      AnnotationConfigApplicationContext context =
             new AnnotationConfigApplicationContext(AppConfig.class);
 
-//      UserService userService = context.getBean(UserService.class);
+      UserService userService = context.getBean(UserService.class);
 //
 //      userService.add(new User("User1", "Lastname1", "user1@mail.ru"));
 //      userService.add(new User("User2", "Lastname2", "user2@mail.ru"));
@@ -28,6 +28,8 @@ public class MainApp {
 //         System.out.println("Email = "+user.getEmail());
 //         System.out.println();
 //      }
+
+      User u = userService.getUserById(7);
 
       context.close();
    }
